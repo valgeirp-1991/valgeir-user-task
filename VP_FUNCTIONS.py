@@ -79,7 +79,7 @@ def show_tasks_for_user(cursor): #Showing task/s for user
         return   
 
     cursor.execute("""
-        SELECT id, title
+        SELECT id, title, done
         FROM tasks
         WHERE user_id = ?
         ORDER BY id
@@ -91,8 +91,9 @@ def show_tasks_for_user(cursor): #Showing task/s for user
     if not tasks:
         print("No tasks found for this user.\n")
     else:
-        for task_id, title in tasks:
-            print(f"Task ID: {task_id} | Title: {title}")
+        for task_id, title, done in tasks:
+            status = "✅" if done == 1 else "❌"
+            print(f"{status} Task ID: {task_id} | Title: {title}")
         print()
         
 def show_stats(cursor): #Show users age status (count, 18+, max(age), min(age), avg(age))

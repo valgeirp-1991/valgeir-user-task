@@ -24,5 +24,3 @@ def setup_tables(cursor, conn): # Create 2 tables (users(ID,name,age))(tasks(ID,
         done INTEGER NOT NULL DEFAULT 0,  
         FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE)
     """)
-
-print("Database and tables created!")
