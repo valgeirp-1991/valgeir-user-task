@@ -79,5 +79,8 @@ Add “List all tasks” option (in progress)
 Add search (find user by name) (in progress)
 Add unit tests
 
+*The database file is ignored in Git (.gitignore).
+*It will be created automatically when the application runs.
+
 *License
 *This project is for learning/practice.
