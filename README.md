@@ -1,3 +1,6 @@
+![Python](https://img.shields.io/badge/Python-3.x-blue)
+![SQLite](https://img.shields.io/badge/Database-SQLite-green)
+![License](https://img.shields.io/badge/License-MIT-yellow)
 # Valgeir Users & Tasks (SQLite + Python)
 
 A simple command-line application where you can manage users and their tasks using a SQLite database.
