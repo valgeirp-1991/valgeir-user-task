@@ -1,71 +1,61 @@
 ![Python](https://img.shields.io/badge/Python-3.x-blue)
 ![SQLite](https://img.shields.io/badge/Database-SQLite-green)
 ![License](https://img.shields.io/badge/License-MIT-yellow)
+
 # Valgeir Users & Tasks (SQLite + Python)
 
-A simple command-line application where you can manage users and their tasks using a SQLite database.
+A command-line application where you can manage users and their tasks using a SQLite database.
 
-This project was created to practice Python + SQL basics (CRUD), input validation, and working with multiple Python modules.
+This project was created to practice Python + SQL basics (CRUD), input validation, relational data, and working with multiple Python modules.
 
 ---
 
 ## Features
 
 ### Users
-- Add a user (name + age)
-- List users (sorted by age and name)
-- Update a user
-- Delete a user (automatically deletes their tasks)
+- Add user (name + age)
+- List users (sorted by age + name) including:
+  - total tasks
+  - pending tasks
+- Update user (by ID)
+- Delete user (by ID, with confirmation)
+- Search user by name
 
 ### Tasks
-- Add a task to a specific user
-- Show tasks for a specific user
-- Update a task (change title or move to another user)
-- Delete a task
+- Add task (by user ID)
+- List all tasks (shows status, task ID, title, user)
+- Show tasks for a specific user (shows DONE/TODO)
+- Update task (by task ID: rename + move to another user)
+- Delete task (by task ID, shows task list first)
+- Filter tasks (unfinished / finished)
+- Toggle task done / undone (shows task list first)
 
 ### Statistics
-- Total users
-- Adults (18+)
-- Oldest user
-- Youngest user
-- Average age
+**User stats**
+- total users
+- adults (18+)
+- oldest / youngest
+- average age
+
+**Task stats**
+- total tasks
+- tasks done
+- tasks remaining
 
 ---
 
 ## Quick Demo
 
-
-==== MENU ====
-
-Add user
-
-List users
-
-Add task
-
-Show tasks for user
-
-Stats
-
-Update user
-
-Update task
-
-Delete user
-
-Delete task
-
-Exit
+Example output:
 
 
-Example workflow:
+Users:
+ID: 1 | Valgeir | age=35 | tasks=4 | pending=2
+ID: 2 | Sandra | age=37 | tasks=1 | pending=0
 
-
-Add user: Valgeir, 33
-Add task to user ID 1: Buy milk
-Show tasks for user ID 1
-Update task title or move it to another user
-Delete a user (their tasks are deleted automatically)
+Tasks:
+[TODO] Task ID: 3 | Buy milk | User: Valgeir
+[DONE] Task ID: 4 | Clean room | User: Sandra
 
 
 ---
@@ -77,8 +67,8 @@ valgeirp_git/
 │
 ├── VP_MANU_APP.py # Main menu (runs the app)
 ├── VP_DB.py # Database connection + table setup
-├── VP_FUNCTIONS.py # All functions (CRUD + validation)
-└── Valgeir_Palsson.db # SQLite database (created automatically)
+├── VP_FUNCTIONS.py # Functions (CRUD + validation + helpers)
+└── Valgeir_Palsson.db # SQLite database (created automatically, ignored by git)
 
 
 ---
@@ -118,6 +108,7 @@ Valgeir_Palsson.db
 Contains all application logic including:
 - Input validation (name and positive integers)
 - CRUD operations (Create, Read, Update, Delete)
+- Helper functions for printing users and tasks
 
 **VP_MANU_APP.py**
 - Displays the menu
@@ -128,41 +119,34 @@ Contains all application logic including:
 ## Database Schema
 
 ### users
-
 | column | type |
 |------|------|
 | id | INTEGER PRIMARY KEY |
-| name | TEXT |
-| age | INTEGER |
+| name | TEXT NOT NULL |
+| age | INTEGER NOT NULL |
 
 ### tasks
-
 | column | type |
 |------|------|
 | id | INTEGER PRIMARY KEY |
-| title | TEXT |
-| user_id | INTEGER |
-| done | INTEGER (default 0) |
+| title | TEXT NOT NULL |
+| user_id | INTEGER NOT NULL |
+| done | INTEGER NOT NULL DEFAULT 0 |
 
-`user_id` references `users.id`.
-
-The tasks table uses **ON DELETE CASCADE**, meaning:
-
-If a user is deleted, all their tasks are deleted automatically.
+`user_id` references `users(id)` with `ON DELETE CASCADE`  
+(when a user is deleted, all their tasks are deleted automatically)
 
 ---
 
 ## Planned Improvements
 
-- Mark task as done / undone
-- Show task status (✅ / ❌)
-- Add "List all tasks" option
-- Search users by name
-- Add unit tests
 - Convert the application into a FastAPI REST API
+- Add unit tests
+- Add due dates for tasks
+- Export users/tasks to CSV
 
 ---
 
 ## License
 
-This project was created for learning and practice.
+MIT (or learning project)
